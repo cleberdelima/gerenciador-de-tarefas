@@ -111,7 +111,7 @@ function saveTask() {
     if (validate) {
         this.setTaskCard(statusId, taskCard);
     }
-    this.setTaskId
+    this.setTaskId();
 }
 
 function formValidate(taskName, taskDate, taskPriority, taskStatus) {
