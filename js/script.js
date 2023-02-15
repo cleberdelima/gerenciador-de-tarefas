@@ -1,22 +1,11 @@
 // VARIAVEIS GLOBAIS
-
-var taskId = 0;
-var taskIdForm;         
+var taskId = 0;         
 var taskName;       
 var taskResponsible;
 var taskDescription;
 var taskDate;       
 var taskPriority;   
 var taskStatus;     
-
-this.setTaskId();
-
-
-function setTaskId() {
-    this.taskId ++;
-    $('#task_id').val(this.taskId);
-
-}
 
 function logar() {
     const usuario = 'Cafu';
@@ -73,17 +62,14 @@ function saveTask() {
     taskPriority    = $('#task_priority').val();
     taskStatus      = $('#task_status').val();
 
+    var statusId = taskStatus;
     var validate = this.formValidate(taskName, taskDate, taskPriority, taskStatus);
     this.formatInputs(taskDate, taskPriority, taskStatus);
 
     var taskCard = 
-    " <div class='card mb-4 text-left p-3 border-0'>" +
-    "    <div class='action icon'>" +
-    "       <i class='fa fa-pencil pe-2'></i>" +
-    "         <i class='fa fa-trash-can' onclick= deleteTask()></i>" +
-    "    </div>" +                                                       
-    "     <div class='pb-3'>" +
-    "       <a href='#' class='text-decoration-none'> " +
+    " <div class='card mb-4 text-left p-3 border-0' id=''> " +
+    "   <div class='pb-3'> " +
+    "       <a href='#' class='text-decoration-none' id='name'> " +
                 taskName +
     "       </a> " +
     "   </div> " +
@@ -110,8 +96,32 @@ function saveTask() {
 
     if (validate) {
         this.setTaskCard(statusId, taskCard);
+       
     }
-    this.setTaskId();
+}
+
+function setTaskCard(statusId, taskCard){
+    var card;
+
+    switch(statusId){
+        case '1':
+            card = $('#do_card_content').append(taskCard);
+            break;
+
+            case '2':
+                card = $('#doing_card_content').append(taskCard);
+                break;
+
+            case '3':
+                card = $('#done_card_content').append(taskCard);
+                break;
+            default:
+                alert('erro');
+                break;
+
+
+    }
+    return card;
 }
 
 function formValidate(taskName, taskDate, taskPriority, taskStatus) {
@@ -184,4 +194,3 @@ function getStatusName(taskStatus) {
             return 'Não definido';
     }
 }
-
